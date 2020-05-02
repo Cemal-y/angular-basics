@@ -1,0 +1,34 @@
+<h2>PRODUCTS</h2>
+<p>{{clickedRating}}</p>
+<h2>{{filterText | lowercase}}</h2>
+<input type = "text" [(ngModel)]='filterText'/>
+<table style="width:100%">
+  <tr>
+    <th>productImage</th>
+    <th>productId</th>
+    <th>productName</th>
+    <th>productCode</th>
+    <th>releaseDate</th>
+    <th>price</th>
+    <th>description</th>
+    <th>starRating</th>
+  </tr>
+  <tr *ngFor="let product of filteredProducts">
+    <td >
+      <img [src]="product.imageUrl"
+           [title]='product.productName'
+           [style.width.px]= 50
+           [style.margin.px]= 2>
+    </td>
+    <td >{{product.productId}}</td>
+    <td >
+      <a [routerLink]="['/products', product.productId]"> {{product.productName}}</a>
+    </td>
+    <td >{{product.productCode | convertToSpaces: '-'}}</td>
+    <td >{{product.releaseDate | date}}</td>
+    <td >{{product.price | currency: "EUR"}}</td>
+    <td >{{product.description}}</td>
+    <td ><app-star [rating] = 'product.starRating' (ratingClicked)= "onRatingClicked($event)"></app-star></td>
+  </tr>
+
+</table>
